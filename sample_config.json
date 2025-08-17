@@ -1,0 +1,38 @@
+{
+  "static_tools": {
+    "Capa": false,
+    "Yara": false,
+    "Exiftool": false,
+    "Detect-it-Easy": false,
+    "Floss": false,
+    "ResourceExtract": false
+  },
+  "dynamic_tools": {
+    "Fakenet": false,
+    "ProcDump": false,
+    "Autoclicker": false,
+    "CaptureFiles": false,
+    "Screenshots": false,
+    "RandomizeNames": false,
+    "Procmon": false
+  },
+  "procmon_settings": {
+    "enabled": false,
+    "disable_timer": false,
+    "duration": "60"
+  },
+  "binary": {
+    "path": "",
+    "run": false,
+    "as_admin": false
+  },
+  "vm": {
+    "type": "",
+    "path": "asdasd",
+    "username": "test",
+    "password": "asdasd",
+    "binary_password": "",
+    "hypervisor_path": "",
+    "snapshot": ""
+  }
+}
