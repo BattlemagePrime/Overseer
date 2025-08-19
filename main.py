@@ -77,7 +77,6 @@ def launch_gui(config_path: str):
 def main():
     parser = argparse.ArgumentParser(description="Overseer - Malware Analysis Automation Tool")
     parser.add_argument('--config', '-c', default=str(get_default_config_path()), help='Path to configuration file')
-    parser.add_argument('--cli', action='store_true', help='Run in CLI mode')
     parser.add_argument('--static', action='store_true', help='Run static analysis tools (CLI mode only)')
     parser.add_argument('--dynamic', action='store_true', help='Run dynamic analysis tools (CLI mode only)')
     parser.add_argument('--list-tools', action='store_true', help='List available tools (CLI mode only)')
@@ -90,7 +89,7 @@ def main():
         console.print(f"[red]Error loading configuration:[/red] {str(e)}")
         sys.exit(1)
 
-    if args.cli or args.list_tools or args.static or args.dynamic:
+    if args.list_tools or args.static or args.dynamic:
         if args.list_tools:
             list_tools(overseer_config)
         else:
