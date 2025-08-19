@@ -5,7 +5,8 @@
     "Exiftool": false,
     "Detect-it-Easy": false,
     "Floss": false,
-    "ResourceExtract": false
+    "ResourceExtract": false,
+    "Binwalk": false
   },
   "dynamic_tools": {
     "Fakenet": false,
