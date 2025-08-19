@@ -51,21 +51,6 @@ class ConfigManager:
         with open(self.config_path, 'w') as f:
             json.dump(config, f, indent=4)
 
-# --- CLI and GUI Launch ---
-def list_tools(config: dict):
-    for tool_name, enabled in config.get('static_tools', {}).items():
-        console.print(f"[green]{tool_name}[/green] (static)")
-    for tool_name, enabled in config.get('dynamic_tools', {}).items():
-        console.print(f"[green]{tool_name}[/green] (dynamic)")
-
-def run_cli(config: dict, static: bool, dynamic: bool):
-    if static:
-        console.print("Running all static analysis tools...")
-    elif dynamic:
-        console.print("Running all dynamic analysis tools...")
-    else:
-        console.print("Running all tools...")
-
 def launch_gui(config_path: str):
     from Utils.gui import overseerUI
     from PyQt6.QtWidgets import QApplication
@@ -89,13 +74,7 @@ def main():
         console.print(f"[red]Error loading configuration:[/red] {str(e)}")
         sys.exit(1)
 
-    if args.list_tools or args.static or args.dynamic:
-        if args.list_tools:
-            list_tools(overseer_config)
-        else:
-            run_cli(overseer_config, args.static, args.dynamic)
-    else:
-        launch_gui(args.config)
+    launch_gui(args.config)
 
 if __name__ == '__main__':
     main()
