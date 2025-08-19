@@ -24,15 +24,11 @@
   "binary": {
     "path": "",
     "run": false,
-    "as_admin": false
+    "as_admin": false,
+    "bin_pass": ""
   },
   "vm": {
-    "type": "",
-    "path": "asdasd",
     "username": "test",
-    "password": "asdasd",
-    "binary_password": "",
-    "hypervisor_path": "",
-    "snapshot": ""
+    "password": "asdasd"
   }
 }
