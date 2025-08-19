@@ -338,11 +338,10 @@ class overseerUI(QWidget):
                 }
             }
 
-            if self.vm_path.text():
+            if self.vm.text():
                 analysis_config["vm"] = {
                     "username": self.username.text(),
-                    "password": self.password.text(),
-                    "binary_password": self.zip_password.text(),
+                    "password": self.password.text()
                 }
 
             # After transfer is complete, initialize Overseer and start analysis
@@ -440,6 +439,7 @@ class overseerUI(QWidget):
             self.static_tools["Detect-it-Easy"].setChecked(config.get("tool_Detect-It-Easy", False))
             self.static_tools["ResourceExtract"].setChecked(config.get("tool_ResourceExtract", False))
             self.static_tools["Exiftool"].setChecked(config.get("tool_Exiftool", False))
+            self.static_tools["Binwalk"].setChecked(config.get("tool_Binwalk", False))
             
             # Load dynamic tools
             self.dynamic_tools["Fakenet"].setChecked(config.get("tool_FakeNet", False))
