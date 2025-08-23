@@ -6,34 +6,20 @@ Unified entry point and configuration management
 import os
 import sys
 import json
-import argparse
-from dataclasses import dataclass
-from typing import List, Optional
+from typing import Optional
 from rich.console import Console
 from pathlib import Path
 
-console = Console()
+# Add project root to Python path
+project_root = Path(__file__).parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
-def get_overseer_root():
-    return Path.home() / "Desktop" / "Tools"
+console = Console()
 
 def get_default_config_path():
     # Use the directory of this script for the config file
     return Path(__file__).parent / "sample_config.json"
-
-@dataclass
-class ToolConfig:
-    name: str
-    path: str
-    type: str  # 'static' or 'dynamic'
-    arguments: List[str]
-    working_directory: Optional[str] = None
-
-@dataclass
-class OverseerConfig:
-    binary_path: str
-    tools_folder: str
-    tools: List[ToolConfig]
 
 class ConfigManager:
     def __init__(self, config_path: str):
@@ -44,15 +30,16 @@ class ConfigManager:
         if not os.path.exists(self.config_path):
             raise FileNotFoundError(f"Config file not found: {self.config_path}")
         with open(self.config_path, 'r') as f:
-            self.config = json.load(f)
-        return self.config
+            config = json.load(f)
+            self.config = config
+            return config
 
     def save_config(self, config: dict):
         with open(self.config_path, 'w') as f:
             json.dump(config, f, indent=4)
 
 def launch_gui(config_path: str):
-    from Utils.gui import overseerUI
+    from overseer.gui import overseerUI
     from PyQt6.QtWidgets import QApplication
     app = QApplication(sys.argv)
     window = overseerUI(config_path=config_path)
@@ -60,21 +47,16 @@ def launch_gui(config_path: str):
     app.exec()
 
 def main():
-    parser = argparse.ArgumentParser(description="Overseer - Malware Analysis Automation Tool")
-    parser.add_argument('--config', '-c', default=str(get_default_config_path()), help='Path to configuration file')
-    parser.add_argument('--static', action='store_true', help='Run static analysis tools (CLI mode only)')
-    parser.add_argument('--dynamic', action='store_true', help='Run dynamic analysis tools (CLI mode only)')
-    parser.add_argument('--list-tools', action='store_true', help='List available tools (CLI mode only)')
-    args = parser.parse_args()
+    config_path = str(get_default_config_path())
 
     try:
-        config_manager = ConfigManager(args.config)
-        overseer_config = config_manager.load_config()
+        config_manager = ConfigManager(config_path)
+        _ = config_manager.load_config()  # Load to validate config
     except Exception as e:
         console.print(f"[red]Error loading configuration:[/red] {str(e)}")
         sys.exit(1)
 
-    launch_gui(args.config)
+    launch_gui(config_path)
 
 if __name__ == '__main__':
     main()

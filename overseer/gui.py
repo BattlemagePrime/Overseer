@@ -61,9 +61,9 @@ class overseerUI(QWidget):
         self.stop_btn.clicked.connect(self.stop_analysis)
         self.results_btn = QPushButton("Open Results")
         self.results_btn.clicked.connect(self.open_results)
-        bottom_layout.addWidget(self.start_btn)
         bottom_layout.addWidget(self.stop_btn)
         bottom_layout.addWidget(self.results_btn)
+        bottom_layout.addWidget(self.start_btn)
         main_layout.addLayout(bottom_layout)
 
         self.setLayout(main_layout)
